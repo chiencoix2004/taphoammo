@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-
+use Illuminate\Support\Str;
 // use Illuminate\Database\Eloquent\Factories\Factory;
 // use App\Models\Shop;
 // use App\Models\User;
@@ -31,7 +31,6 @@ namespace Database\Factories;
 //         ];
 //     }
 // }
-namespace Database\Factories;
 
 use App\Models\Categories;
 use App\Models\Shop;
@@ -58,10 +57,14 @@ class ShopFactory extends Factory
             // Xử lý khi không có danh mục cấp 3 (nếu cần)
             // $categoryLevel3 = Categories::whereHas('parent')->first(); // Lấy danh mục cấp 2
         }
-        
+
+        $timestamp = date('Ymd');  // Năm-tháng-ngày
+        $title = $this->faker->company;
+        $randomNumber = rand(1000, 9999);
         return [
             'id_user' => User::inRandomOrder()->first()->id,
-            'title' => $this->faker->company,
+            'title' => $title,
+            'slug' => Str::slug($title . '-' . $timestamp . $randomNumber),
             'short_description' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'image' => $this->faker->imageUrl,
@@ -69,6 +72,5 @@ class ShopFactory extends Factory
             'id_category' => $categoryLevel3->id, // Lấy id của danh mục cấp 3
             'discount' => $categoryLevel3->discount, // Lấy discount từ danh mục cấp 3
         ];
-        
     }
 }

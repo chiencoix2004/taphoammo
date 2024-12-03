@@ -42,8 +42,8 @@ Route::prefix('admin')->as('admin.')
 
         //gian hàng
         Route::prefix('shops')->as('shops.')->group(function () {
-            Route::get('listShop', [ShopsController::class, 'listShop'])->name('listShop');
-            // Route::get('detailCategory/{slug}', [CategoriesController::class, 'detailCategory'])->name('detailCategory');
+            Route::get('listShop1', [ShopsController::class, 'listShop1'])->name('listShop1');
+            Route::get('detailShop/{slug}', [ShopsController::class, 'detailShop'])->name('detailShop');
             // Route::post('updateCategory', [CategoriesController::class, 'updateCategory'])->name('updateCategory');
             // Route::post('updateSubCategory', [CategoriesController::class, 'updateSubCategory'])->name('updateSubCategory');
             // Route::post('addSubCategory', [CategoriesController::class, 'addSubCategory'])->name('addSubCategory');

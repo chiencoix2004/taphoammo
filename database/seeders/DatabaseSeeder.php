@@ -17,7 +17,12 @@ class DatabaseSeeder extends Seeder
             //   SubCategorySeeder::class
             // UserSeeder::class
             // WalletSeeder::class
-            ShopSeeder::class
+            // ShopSeeder::class,
+            // ProductSeeder::class,
+            // CommentSeeder::class,
+            // CommentReplySeeder::class
+
+
         ]);
         
     }

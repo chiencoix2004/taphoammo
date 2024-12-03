@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-startbar="dark" data-bs-theme="light">
+<html lang="en" dir="ltr" data-startbar="dark" data-bs-theme="dark">
 
 
 <!-- Mirrored from mannatthemes.com/approx/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Nov 2024 13:37:52 GMT -->
@@ -31,10 +31,10 @@
 }
 
 </style>
-      <script>
+      {{-- <script>
         document.documentElement.setAttribute("data-bs-theme", "dark");
 
-    </script>
+    </script> --}}
     
 
 </head>

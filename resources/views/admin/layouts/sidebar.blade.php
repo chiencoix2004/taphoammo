@@ -29,35 +29,49 @@
                             <span class="badge text-bg-info ms-auto">New</span>
                         </a>
                     </li><!--end nav-item-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('admin.categories.listCategory')}}">
+                    <li class="nav-item {{ request()->is('admin/categories/detailCategory/*') ? 'active' : '' }}">
+                        <a class="nav-link {{ request()->is('admin/categories/detailCategory/*') ? 'active' : '' }}" href="{{route('admin.categories.listCategory')}}">
                             {{-- <i class="iconoir-hand-cash menu-icon"></i> --}}
                             <i class="iconoir-task-list menu-icon"></i>
                             <span>Danh Mục</span>
                         </a>
                     </li><!--end nav-item-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('admin.users.listUser')}}">
+                    <li class="nav-item {{ request()->is('admin/users/detailUser/*') ? 'active' : '' }}">
+                        <a class="nav-link {{ request()->is('admin/users/detailUser/*') ? 'active' : '' }}" href="{{route('admin.users.listUser')}}">
                             <i class="iconoir-group menu-icon"></i>
                             <span>Tài Khoản</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <i class="iconoir-shop menu-icon"></i>
-                            <span>Gian Hàng</span>
-                        </a>
-                    </li><!--end nav-item--> --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#sidebarTransactions" data-bs-toggle="collapse" role="button"
+                    {{-- <li class="nav-item {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}">
+                        <a class="nav-link {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}" href="#sidebarTransactions" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarTransactions">
                             <i class="iconoir-shop menu-icon"></i>
                             <span>Gian Hàng</span>
                         </a>
                         <div class="collapse " id="sidebarTransactions">
                             <ul class="nav flex-column">
+                                <li class="nav-item {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}">
+                                    <a class="nav-link {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}" href="{{route('admin.shops.listShop1')}}">GH Chưa Duyệt <span class="badge rounded text-success bg-success-subtle ms-1">New</span></a>
+                                </li><!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('admin.shops.listShop')}}">GH Chưa Duyệt <span class="badge rounded text-success bg-success-subtle ms-1">New</span></a>
+                                    <a class="nav-link" href="new-transaction.html">GH Đã Duyệt</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="new-transaction.html">GH Đã Cấm</a>
+                                </li><!--end nav-item-->
+                            </ul><!--end nav-->
+                        </div><!--end startbarTables-->
+                    </li><!--end nav-item--> --}}
+                    <li class="nav-item {{ request()->is('admin/shops*') ? 'active' : '' }}">
+                        <a class="nav-link" href="#sidebarTransactions" data-bs-toggle="collapse" role="button"
+                            aria-expanded="{{ request()->is('admin/shops*') ? 'true' : 'false' }}" aria-controls="sidebarTransactions">
+                            <i class="iconoir-shop menu-icon"></i>
+                            <span>Gian Hàng</span>
+                        </a>
+                        <div class="collapse {{ request()->is('admin/shops*') ? 'show' : '' }}" id="sidebarTransactions">
+                            <ul class="nav flex-column">
+                                <li class="nav-item {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}">
+                                    <a class="nav-link {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}" href="{{route('admin.shops.listShop1')}}">GH Chưa Duyệt <span class="badge rounded text-success bg-success-subtle ms-1">New</span></a>
                                 </li><!--end nav-item-->
                                 <li class="nav-item">
                                     <a class="nav-link" href="new-transaction.html">GH Đã Duyệt</a>
@@ -68,6 +82,7 @@
                             </ul><!--end nav-->
                         </div><!--end startbarTables-->
                     </li><!--end nav-item-->
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="cards.html">
                             <i class="iconoir-credit-cards menu-icon"></i>

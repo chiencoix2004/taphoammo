@@ -53,23 +53,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
+
     public function wallet()
-{
-    return $this->hasOne(Wallet::class, 'id_user'); // Nếu chỉ có 1 ví
-    // return $this->hasMany(Wallet::class, 'id_user'); // Nếu có nhiều ví
-}
-// app/Models/User.php
-public function level()
-{
-    return $this->belongsTo(Level::class);
-}
+    {
+        return $this->hasOne(Wallet::class, 'id_user'); // Nếu chỉ có 1 ví
+        // return $this->hasMany(Wallet::class, 'id_user'); // Nếu có nhiều ví
+    }
+    // app/Models/User.php
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
 
-// public function transactions()
-// {
-//     return $this->hasMany(Transaction::class); // Giả sử có bảng transactions
-// }
+    // public function transactions()
+    // {
+    //     return $this->hasMany(Transaction::class); // Giả sử có bảng transactions
+    // }
 
-    
+
 
 }

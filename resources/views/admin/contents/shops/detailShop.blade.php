@@ -413,9 +413,9 @@
                                                 @endforeach
                                                 </li>
                                             </ul>
-                                            
+
                                         </div><!--end card-body-->
-                                       
+
                                     </div><!--end card-body-->
                                     {{ $comments->links('pagination::bootstrap-4') }}
                                 </div> <!--end card-->
@@ -548,26 +548,40 @@
                             <div class="card-header">
                                 <h4 class="card-title">Trạng Thái Gian Hàng</h4>
                             </div><!--end card-header-->
-                            <div class="card-body pt-0">
-                                <div class="form-group mb-3 row">
-                                    <label
-                                        class="col-xl-3 col-lg-3 text-end mb-lg-0 align-self-center form-label">Trạng Thái</label>
-                                    <div class="col-lg-9 col-xl-8">
-                                        <select class="form-select">
-                                            <option value="1">Chưa Duyệt</option>
-                                            <option value="2">Đã Duyệt</option>
-                                            <option value="3">Bị Cấm</option>
-                                        </select>
+                            <form id="statusForm" action="{{ route('admin.shops.updateStatusShop') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="shop_id" value="{{ $detailShop->id }}">
+                                <div class="card-body pt-0">
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-end mb-lg-0 align-self-center form-label">Trạng
+                                            Thái</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <select class="form-select" name="status" id="status">
+                                                <option value="1" {{ $detailShop->status == '1' ? 'selected' : '' }}>
+                                                    Chưa Duyệt</option>
+                                                <option value="2" {{ $detailShop->status == '2' ? 'selected' : '' }}>
+                                                    Đã Duyệt</option>
+                                                <option value="3" {{ $detailShop->status == '3' ? 'selected' : '' }}>
+                                                    Đã Cấm</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 offset-lg-3">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                            <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Submit</button>
+                                            <button type="button" class="btn btn-danger">Cancel</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div><!--end card-body-->
+                                </div><!--end card-body-->
                         </div><!--end card-->
+                        </form>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div> <!--end col-->
@@ -575,4 +589,33 @@
 
 
         </div>
+      
+        <script>
+            function confirmSubmit() {
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Bạn sẽ không thể hoàn tác sau khi thực hiện hành động này!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText:"Hủy",
+                    confirmButtonText: "Có, cập nhật!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Hiển thị thông báo thành công và submit form
+                        Swal.fire({
+                            title: "Thành công!",
+                            text: "Trạng thái đã được cập nhật.",
+                            icon: "success",
+                            timer: 2500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            document.getElementById('statusForm')
+                        .submit(); // Gửi form sau khi người dùng xác nhận
+                        });
+                    }
+                });
+            }
+        </script>
     @endsection

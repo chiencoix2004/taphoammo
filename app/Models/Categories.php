@@ -40,18 +40,52 @@ class Categories extends Model
     protected $fillable = ['name', 'slug', 'parent_id', 'discount', 'status'];
 
     // Tạo slug tự động khi lưu
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //     // Tạo slug tự động khi lưu tên
+    //     static::creating(function ($categories) {
+    //         $categories->slug = Str::slug($categories->name);
+    //     });
+
+    //     // Cập nhật slug nếu tên thay đổi
+    //     static::updating(function ($categories) {
+    //         $categories->slug = Str::slug($categories->name);
+    //     });
+    // }
+    // Tạo slug tự động khi lưu
     public static function boot()
     {
         parent::boot();
+
         // Tạo slug tự động khi lưu tên
         static::creating(function ($categories) {
-            $categories->slug = Str::slug($categories->name);
+            // Kiểm tra nếu slug đã tồn tại, thêm số ngẫu nhiên vào
+            $categories->slug = self::generateUniqueSlug($categories->name);
         });
 
         // Cập nhật slug nếu tên thay đổi
         static::updating(function ($categories) {
-            $categories->slug = Str::slug($categories->name);
+            // Kiểm tra nếu slug đã tồn tại, thêm số ngẫu nhiên vào
+            $categories->slug = self::generateUniqueSlug($categories->name);
         });
+    }
+
+    // Hàm tạo slug duy nhất
+    public static function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        // Kiểm tra slug có tồn tại trong cơ sở dữ liệu không
+        while (Categories::where('slug', $slug)->exists()) {
+            // Nếu tồn tại, thêm một số vào cuối slug
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 
     public function parent()
@@ -66,20 +100,16 @@ class Categories extends Model
 
 
     // Thêm thuộc tính level vào model Categories
-public function getLevelAttribute()
-{
-    $level = 0;
-    $parent = $this->parent;
-    
-    while ($parent) {
-        $level++;
-        $parent = $parent->parent; // Đi lên theo cây cha
+    public function getLevelAttribute()
+    {
+        $level = 0;
+        $parent = $this->parent;
+
+        while ($parent) {
+            $level++;
+            $parent = $parent->parent; // Đi lên theo cây cha
+        }
+
+        return $level;
     }
-    
-    return $level;
 }
-
-}
-
-
-

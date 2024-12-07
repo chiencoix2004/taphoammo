@@ -62,7 +62,9 @@
                             </ul><!--end nav-->
                         </div><!--end startbarTables-->
                     </li><!--end nav-item--> --}}
-                    <li class="nav-item {{ request()->is('admin/shops*') ? 'active' : '' }}">
+
+                    {{-- {{ request()->is('admin/shops*') ? 'active' : '' }} --}}
+                    <li class="nav-item">
                         <a class="nav-link" href="#sidebarTransactions" data-bs-toggle="collapse" role="button"
                             aria-expanded="{{ request()->is('admin/shops*') ? 'true' : 'false' }}" aria-controls="sidebarTransactions">
                             <i class="iconoir-shop menu-icon"></i>
@@ -70,24 +72,30 @@
                         </a>
                         <div class="collapse {{ request()->is('admin/shops*') ? 'show' : '' }}" id="sidebarTransactions">
                             <ul class="nav flex-column">
-                                <li class="nav-item {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}">
-                                    <a class="nav-link {{ request()->is('admin/shops/detailShop/*') ? 'active' : '' }}" href="{{route('admin.shops.listShop1')}}">GH Chưa Duyệt <span class="badge rounded text-success bg-success-subtle ms-1">New</span></a>
+                                <li class="nav-item {{ request()->is('admin/shops/listShop1') || request()->is('admin/shops/detailShop/*/1') ? 'active' : '' }}">
+                                    <a class="nav-link {{ request()->is('admin/shops/detailShop/*/1') ? 'active' : ''  }}" href="{{route('admin.shops.listShop1')}}">GH Chưa Duyệt <span class="badge rounded text-success bg-success-subtle ms-1">New</span></a>
                                 </li><!--end nav-item-->
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="new-transaction.html">GH Đã Duyệt</a>
+                                </li><!--end nav-item--> --}}
+                                <li class="nav-item {{ request()->is('admin/shops/listShopStatus2') || request()->is('admin/shops/detailShop/*/2') ? 'active' : '' }}">
+                                    <a class="nav-link {{ request()->is('admin/shops/detailShop/*/2') ? 'active' : ''  }}" href="{{route('admin.shops.listShopStatus2')}}">GH Đã Duyệt</a>
                                 </li><!--end nav-item-->
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="new-transaction.html">GH Đã Cấm</a>
+                                </li><!--end nav-item--> --}}
+                                <li class="nav-item {{ request()->is('admin/shops/listShopStatus3') || request()->is('admin/shops/detailShop/*/3') ? 'active' : '' }}">
+                                    <a class="nav-link {{ request()->is('admin/shops/detailShop/*/3') ? 'active' : ''  }}" href="{{route('admin.shops.listShopStatus3')}}">GH Đã Cấm</a>
                                 </li><!--end nav-item-->
                             </ul><!--end nav-->
                         </div><!--end startbarTables-->
                     </li><!--end nav-item-->
                     
-                    <li class="nav-item">
-                        <a class="nav-link" href="cards.html">
+                    <li class="nav-item {{ request()->is('admin/banks/detailBank/*') ? 'active' : '' }}">
+                        <a class="nav-link {{ request()->is('admin/banks/detailBank/*') ? 'active' : '' }}" href="{{route('admin.banks.listBank')}}">
                             <i class="iconoir-credit-cards menu-icon"></i>
-                            <span>Cards</span>
-                            <span class="badge text-bg-pink ms-auto">03</span>
+                            <span>Ngân Hàng</span>
+                            {{-- <span class="badge text-bg-pink ms-auto">03</span> --}}
                         </a>
                     </li><!--end nav-item-->
                     <li class="nav-item">

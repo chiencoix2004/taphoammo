@@ -94,13 +94,13 @@
                             </div> <!--end row-->
                         </div><!--end card-header-->
                         <div class="card-body pt-0">
-                            <form action="{{ route('admin.categories.addCategory') }}" method="POST">
+                            <form id="statusForm" action="{{ route('admin.categories.addCategory') }}" method="POST">
                                 @csrf
                                 <div class="mb-3 row">
                                     <label for="horizontalInput1" class="col-sm-2 col-form-label">Tên Danh Mục</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Enter Name Category">
+                                            placeholder="Nhập Tên Danh Mục">
                                     </div>
                                 </div>
                                 @if ($errors->any())
@@ -119,7 +119,7 @@
                                 @endif
                                 <div class="row">
                                     <div class="col-sm-10 ms-auto">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Lưu</button>
                                         <button type="button" class="btn btn-danger">Cancel</button>
                                     </div>
                                 </div>
@@ -133,147 +133,34 @@
                 </div>
             </div><!--end row-->
             <hr>
-            {{-- <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h4 class="card-title">Striped Rows</h4>
-                                </div><!--end col-->
-                            </div> <!--end row-->
-                        </div><!--end card-header-->
-                        <div class="card-body pt-0">
-                            <div class="table-responsive">
-                                <table class="table table-striped mb-0">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Customer</th>
-                                            <th>Email</th>
-                                            <th>Contact No</th>
-                                            <th class="text-end">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-3.jpg" alt=""
-                                                    class="rounded-circle thumb-md me-1 d-inline"> Aaron Poulin</td>
-                                            <td>Aaron@example.com</td>
-                                            <td>+21 21547896</td>
-                                            <td class="text-end">
-                                                <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                                <a href="#"><i
-                                                        class="las la-trash-alt text-secondary font-16"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-4.jpg" alt=""
-                                                    class="rounded-circle thumb-md me-1 d-inline"> Richard Ali</td>
-                                            <td>Richard@example.com</td>
-                                            <td>+41 21547896</td>
-                                            <td class="text-end">
-                                                <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                                <a href="#"><i
-                                                        class="las la-trash-alt text-secondary font-16"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-5.jpg" alt=""
-                                                    class="rounded-circle thumb-md me-1 d-inline"> Juan Clark</td>
-                                            <td>Juan@example.com</td>
-                                            <td>+65 21547896</td>
-                                            <td class="text-end">
-                                                <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                                <a href="#"><i
-                                                        class="las la-trash-alt text-secondary font-16"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-6.jpg" alt=""
-                                                    class="rounded-circle thumb-md me-1 d-inline"> Albert Hull</td>
-                                            <td>Albert@example.com</td>
-                                            <td>+88 21547896</td>
-                                            <td class="text-end">
-                                                <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                                <a href="#"><i
-                                                        class="las la-trash-alt text-secondary font-16"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table><!--end /table-->
-                            </div><!--end /tableresponsive-->
-                        </div><!--end card-body-->
-                    </div><!--end card-->
-                </div> <!--end col-->
-                <div class="col-md-6 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h4 class="card-title">Table Head Options</h4>
-                                </div><!--end col-->
-                            </div> <!--end row-->
-                        </div><!--end card-header-->
-                        <div class="card-body pt-0">
-                            <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Access</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>XYZ@Example.com</td>
-                                            <td><span
-                                                    class="badge bg-transparent border border-success text-success">Business</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>XYZ@Example.com</td>
-                                            <td><span
-                                                    class="badge bg-transparent border border-warning text-warning">Personal</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>XYZ@Example.com</td>
-                                            <td><span
-                                                    class="badge bg-transparent border border-danger text-danger">Disabled</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">4</th>
-                                            <td>Mark</td>
-                                            <td>XYZ@Example.com</td>
-                                            <td><span
-                                                    class="badge bg-transparent border border-success text-success">Business</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">5</th>
-                                            <td>Jacob</td>
-                                            <td>XYZ@Example.com</td>
-                                            <td><span
-                                                    class="badge bg-transparent border border-warning text-warning">Personal</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table><!--end /table-->
-                            </div><!--end /tableresponsive-->
-                        </div><!--end card-body-->
-                    </div><!--end card-->
-                </div> <!--end col-->
-            </div> --}}
             <!--end row-->
         </div><!-- container -->
-
+        <script>
+            function confirmSubmit() {
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Bạn sẽ không thể hoàn tác sau khi thực hiện hành động này!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText:"Hủy",
+                    confirmButtonText: "Có, cập nhật!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Hiển thị thông báo thành công và submit form
+                        Swal.fire({
+                            title: "Thành công!",
+                            text: "Trạng thái đã được cập nhật.",
+                            icon: "success",
+                            timer: 2500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            document.getElementById('statusForm')
+                        .submit(); // Gửi form sau khi người dùng xác nhận
+                        });
+                    }
+                });
+            }
+        </script>
     @endsection

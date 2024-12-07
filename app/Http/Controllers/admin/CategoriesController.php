@@ -137,13 +137,59 @@ class CategoriesController extends Controller
     return back()->with('message', 'Cập nhật danh mục thành công');
   }
 
+  // public function addSubCategory(Request $req)
+  // {
+  //   // Xác thực dữ liệu
+  //   $validatedData = $req->validate([
+  //     'parent_id' => 'required|exists:categories,id', // Kiểm tra xem danh mục cha có tồn tại không
+  //     'name' => 'required|string|max:20',  // Kiểm tra tên danh mục con
+  //     'discount' => 'required|numeric|min:0|max:5',  // Kiểm tra chiết khấu
+  //   ], [
+  //     'parent_id.required' => 'Bạn cần chọn danh mục cha.',
+  //     'parent_id.exists' => 'Danh mục cha không tồn tại.',
+  //     'name.required' => 'Tên danh mục con là bắt buộc.',
+  //     'name.max' => 'Tên danh mục con không được vượt quá 20 ký tự.',
+  //     'discount.required' => 'Chiết khấu là bắt buộc.',
+  //     'discount.numeric' => 'Chiết khấu phải là một số.',
+  //     'discount.min' => 'Chiết khấu phải lớn hơn hoặc bằng 0.',
+  //     'discount.max' => 'Chiết khấu không được vượt quá 5%.',
+  //   ]);
+
+
+
+  //   // Kiểm tra nếu có parent_id và tên danh mục trùng với danh mục con trong parent_id
+  //   if ($req->parent_id) {
+  //     $existingCategory = Categories::where('parent_id', $req->parent_id)
+  //       ->where('name', $req->name)
+  //       ->first();
+
+  //     if ($existingCategory) {
+  //       return back()->withErrors(['name' => 'Danh mục con này đã tồn tại trong danh mục cha.'])->withInput();
+  //     }
+  //   }
+  //   $randomNumber = rand(1000, 9999);
+  //   // Tạo mới danh mục con
+  //   $category = new Categories();
+  //   $category->parent_id = $req->parent_id;  // Lưu ID danh mục cha
+  //   $category->name = $req->name;            // Lưu tên danh mục con
+  //   // $category->slug = Str::slug($req->name); // Tạo slug từ tên danh mục
+  //   $category->slug = Str::slug($req->name . '-' . $randomNumber);
+  //   $category->discount = $req->discount;    // Lưu giá trị chiết khấu
+  //   $category->status = 1;  // Giả sử trạng thái mặc định là hoạt động (1)
+
+  //   // Lưu danh mục
+  //   $category->save();
+
+  //   // Trả về thông báo thành công
+  //   return back()->with('message', 'Thêm Danh Mục Con Thành Công');
+  // }
   public function addSubCategory(Request $req)
   {
     // Xác thực dữ liệu
     $validatedData = $req->validate([
-      'parent_id' => 'required|exists:categories,id', // Kiểm tra xem danh mục cha có tồn tại không
-      'name' => 'required|string|max:20',  // Kiểm tra tên danh mục con
-      'discount' => 'required|numeric|min:0|max:5',  // Kiểm tra chiết khấu
+      'parent_id' => 'required|exists:categories,id',
+      'name' => 'required|string|max:20',
+      'discount' => 'required|numeric|min:0|max:5',
     ], [
       'parent_id.required' => 'Bạn cần chọn danh mục cha.',
       'parent_id.exists' => 'Danh mục cha không tồn tại.',
@@ -155,27 +201,32 @@ class CategoriesController extends Controller
       'discount.max' => 'Chiết khấu không được vượt quá 5%.',
     ]);
 
+    // Kiểm tra tên danh mục con trùng với parent_id
+    $existingCategoryByName = Categories::where('parent_id', $req->parent_id)
+      ->where('name', $req->name)
+      ->first();
 
-
-   // Kiểm tra nếu có parent_id và tên danh mục trùng với danh mục con trong parent_id
-   if ($req->parent_id) {
-    $existingCategory = Categories::where('parent_id', $req->parent_id)
-                                  ->where('name', $req->name)
-                                  ->first();
-
-    if ($existingCategory) {
-        return back()->withErrors(['name' => 'Danh mục con này đã tồn tại trong danh mục cha.'])->withInput();
+    if ($existingCategoryByName) {
+      return back()->withErrors(['name' => 'Tên danh mục con đã tồn tại trong danh mục cha.'])->withInput();
     }
-}
 
+    // Tạo slug ban đầu
+    $randomNumber = rand(1000, 9999);
+    $slug = Str::slug($req->name . '-' . $randomNumber);
+
+    // Kiểm tra và tạo lại slug nếu trùng lặp
+    while (Categories::where('slug', $slug)->exists()) {
+      $randomNumber = rand(1000, 9999);
+      $slug = Str::slug($req->name . '-' . $randomNumber);
+    }
 
     // Tạo mới danh mục con
     $category = new Categories();
-    $category->parent_id = $req->parent_id;  // Lưu ID danh mục cha
-    $category->name = $req->name;            // Lưu tên danh mục con
-    $category->slug = Str::slug($req->name); // Tạo slug từ tên danh mục
-    $category->discount = $req->discount;    // Lưu giá trị chiết khấu
-    $category->status = 1;  // Giả sử trạng thái mặc định là hoạt động (1)
+    $category->parent_id = $req->parent_id;
+    $category->name = $req->name;
+    $category->slug = $slug;
+    $category->discount = $req->discount;
+    $category->status = 1;
 
     // Lưu danh mục
     $category->save();
@@ -183,6 +234,9 @@ class CategoriesController extends Controller
     // Trả về thông báo thành công
     return back()->with('message', 'Thêm Danh Mục Con Thành Công');
   }
+
+
+
   public function addCategory(Request $req)
   {
     // Xác thực dữ liệu

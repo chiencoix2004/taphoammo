@@ -81,11 +81,6 @@
 
                                                             <div class="dropdown-item"> Sửa </div>
                                                         </a>
-
-                                                        {{-- <a class="dropdown-item"
-                                                            href="{{ route('admin.categories.detailCategory', ['slug' => $detailCategory->slug]) }}">Chi
-                                                            Tiết</a>
-                                                        <a class="dropdown-item" href="#">Sửa Danh Mục</a> --}}
                                                     </div>
 
 
@@ -181,9 +176,8 @@
                                                             aria-haspopup="false" aria-expanded="false">
                                                             <i class="las la-ellipsis-v fs-20 text-muted"></i>
                                                         </a>
-                                                        <div class="dropdown-menu dropdown-menu-end"
+                                                        {{-- <div class="dropdown-menu dropdown-menu-end"
                                                             aria-labelledby="dLabel11">
-                                                            {{-- <a class="dropdown-item" href="#">Creat Project</a> --}}
 
                                                             <a href="javascript:void(0);" class="edit-btnSub"
                                                                 data-id="{{ $child->id }}"
@@ -194,12 +188,22 @@
 
                                                                 <div class="dropdown-item"> Sửa </div>
                                                             </a>
+                                                        </div> --}}
 
-                                                            {{-- <a class="dropdown-item"
-                                                                    href="{{ route('admin.categories.detailCategory', ['slug' => $detailCategory->slug]) }}">Chi
-                                                                    Tiết</a>
-                                                                <a class="dropdown-item" href="#">Sửa Danh Mục</a> --}}
+                                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel11">
+                                                            {{-- Nếu bạn có thêm các mục khác như tạo dự án thì có thể bỏ chú thích --}}
+                                                            <!-- <a class="dropdown-item" href="#">Creat Project</a> -->
+                                                        
+                                                            <a href="javascript:void(0);" class="edit-btnSub"
+                                                               data-id="{{ $child->id }}"
+                                                               data-name="{{ $child->name }}"
+                                                               data-discount="{{ $child->discount }}"
+                                                               data-slug="{{ $child->slug }}"
+                                                               data-status="{{ $child->status }}">
+                                                                <div class="dropdown-item"> Sửa </div>
+                                                            </a>
                                                         </div>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>
@@ -238,31 +242,22 @@
                                                                 aria-haspopup="false" aria-expanded="false">
                                                                 <i class="las la-ellipsis-v fs-20 text-muted"></i>
                                                             </a>
-                                                            <div class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="dLabel11">
-                                                                {{-- <a class="dropdown-item" href="#">Creat Project</a> --}}
-
-                                                                <a href="javascript:void(0);" class="edit-btnSub"
-                                                                    data-id="{{ $subChild->id }}"
-                                                                    data-name="{{ $subChild->name }}"
-                                                                    data-discount="{{ $subChild->discount }}"
-                                                                    data-slug="{{ $subChild->slug }}"
-                                                                    data-status="{{ $subChild->status }}">
-
+                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel11">
+                                                                <!-- Nút Edit với các thuộc tính data-* -->
+                                                                <a href="javascript:void(0);" class="edit-btnSub2"
+                                                                   data-id="{{ $subChild->id }}"
+                                                                   data-name="{{ $subChild->name }}"
+                                                                   data-discount="{{ $subChild->discount }}"
+                                                                   data-slug="{{ $subChild->slug }}"
+                                                                   data-status="{{ $subChild->status }}">
                                                                     <div class="dropdown-item"> Sửa </div>
                                                                 </a>
-
-                                                                {{-- <a class="dropdown-item"
-                                                                    href="{{ route('admin.categories.detailCategory', ['slug' => $detailCategory->slug]) }}">Chi
-                                                                    Tiết</a>
-                                                                <a class="dropdown-item" href="#">Sửa Danh Mục</a> --}}
                                                             </div>
+                                                            
                                                         </div>
                                                     </td>
                                                 </tr>
-
-
-                                                <div class="modal fade" id="editSubModal" tabindex="-1"
+                                                {{-- <div class="modal fade" id="editSubModal" tabindex="-1"
                                                     aria-labelledby="editModalLabel" aria-hidden="true">
                                                     <!-- Nội dung modal -->
                                                     <div class="modal-dialog">
@@ -318,7 +313,68 @@
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
+                                                
+
+                                                {{-- <div class="modal fade" id="editSubModal2" tabindex="-1"
+                                                    aria-labelledby="editModalLabel" aria-hidden="true">
+                                                    <!-- Nội dung modal -->
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Sửa Danh Mục
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form method="POST"
+                                                                action="{{ route('admin.categories.updateSubCategory') }}">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <input type="hidden" id="idSub2"
+                                                                            name="id">
+                                                                        <input type="hidden" id="slugSub2"
+                                                                            name="slug">
+                                                                        <label for="name" class="form-label">Tên
+                                                                            Danh
+                                                                            Mục</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="nameSub2" name="name" required>
+
+
+                                                                        <br>
+                                                                        <label for="discount" class="form-label">Chiết
+                                                                            Khấu
+                                                                            Sàn (%)</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="discountSub2" name="discount" required>
+
+                                                                        <br>
+                                                                        <label for="status" class="form-label">Trạng
+                                                                            Thái</label>
+                                                                        <select name="status" id="statusSub2"
+                                                                            class="form-control">
+                                                                            <option value="1">Hoạt Động</option>
+                                                                            <option value="2">Không HĐ</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Hủy</button>
+                                                                    <button type="submit" class="btn btn-primary">Lưu
+                                                                        thay
+                                                                        đổi</button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                               
                                                 <!-- Hiển thị các mục con của mục con (nếu có) -->
                                                 {{-- @foreach ($subChild->children as $subChild2)
                                                     <tr>
@@ -367,6 +423,126 @@
                                                 @endforeach --}}
                                             @endforeach
                                         @endforeach
+                                        <div class="modal fade" id="editSubModal2" tabindex="-1"
+                                        aria-labelledby="editSubModal2Label" aria-hidden="true">
+                                        <!-- Nội dung modal -->
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editSubModal2Label">Sửa Danh
+                                                        Mục</h5>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form method="POST"
+                                                    action="{{ route('admin.categories.updateSubCategory') }}">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <!-- Hidden fields to store the ID and slug -->
+                                                            <input type="hidden" id="idSub2"
+                                                                name="id">
+                                                            <input type="hidden" id="slugSub2"
+                                                                name="slug">
+
+                                                            <!-- Name input -->
+                                                            <label for="nameSub2" class="form-label">Tên Danh
+                                                                Mục</label>
+                                                            <input type="text" class="form-control"
+                                                                id="nameSub2" name="name" required>
+
+                                                            <br>
+
+                                                            <!-- Discount input -->
+                                                            <label for="discountSub2" class="form-label">Chiết
+                                                                Khấu Sàn (%)</label>
+                                                            <input type="number" class="form-control"
+                                                                id="discountSub2" name="discount" required
+                                                                min="0" max="100">
+
+                                                            <br>
+
+                                                            <!-- Status input -->
+                                                            <label for="statusSub2" class="form-label">Trạng
+                                                                Thái</label>
+                                                            <select name="status" id="statusSub2"
+                                                                class="form-control">
+                                                                <option value="1">Hoạt Động</option>
+                                                                <option value="2">Không HĐ</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Hủy</button>
+                                                        <button type="submit" class="btn btn-primary">Lưu
+                                                            thay đổi</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="modal fade" id="editSubModal" tabindex="-1"
+                                                    aria-labelledby="editSubModalLabel" aria-hidden="true">
+                                                    <!-- Nội dung modal -->
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editSubModalLabel">Sửa Danh
+                                                                    Mục</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form method="POST"
+                                                                action="{{ route('admin.categories.updateSubCategory') }}">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <!-- Hidden fields to store the ID and slug -->
+                                                                        <input type="hidden" id="idSub"
+                                                                            name="id">
+                                                                        <input type="hidden" id="slugSub"
+                                                                            name="slug">
+
+                                                                        <!-- Name input -->
+                                                                        <label for="nameSub" class="form-label">Tên Danh
+                                                                            Mục</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="nameSub" name="name" required>
+
+                                                                        <br>
+
+                                                                        <!-- Discount input -->
+                                                                        <label for="discountSub" class="form-label">Chiết
+                                                                            Khấu Sàn (%)</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="discountSub" name="discount" required
+                                                                            min="0" max="100">
+
+                                                                        <br>
+
+                                                                        <!-- Status input -->
+                                                                        <label for="statusSub" class="form-label">Trạng
+                                                                            Thái</label>
+                                                                        <select name="status" id="statusSub"
+                                                                            class="form-control">
+                                                                            <option value="1">Hoạt Động</option>
+                                                                            <option value="2">Không HĐ</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Hủy</button>
+                                                                    <button type="submit" class="btn btn-primary">Lưu
+                                                                        thay đổi</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                     </tbody>
                                 </table><!--end /table-->
                             </div><!--end /tableresponsive-->
@@ -563,7 +739,7 @@
                                         </ul>
                                     </div>
                                 @endif
-                              
+
                                 @if (session('message'))
                                     <div id="alert-message" class="alert alert-primary" role="alert">
                                         {{ session('message') }}
@@ -571,7 +747,7 @@
                                 @endif
                                 <div class="row">
                                     <div class="col-sm-10 ms-auto">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-primary">Lưu</button>
                                         <button type="button" class="btn btn-danger">Cancel</button>
                                     </div>
                                 </div>
@@ -653,30 +829,7 @@
             <!--end row-->
         </div><!-- container -->
 
-
-
         <script>
-            // document.addEventListener('DOMContentLoaded', function() {
-            //     const editBtns = document.querySelectorAll('.edit-btn');
-
-            //     editBtns.forEach(btn => {
-            //         btn.addEventListener('click', function() {
-            //             // Lấy dữ liệu từ thuộc tính data-*
-            //             const id = btn.getAttribute('data-id');
-            //             const name = btn.getAttribute('data-name');
-            //             const discount = btn.getAttribute('data-discount');
-
-            //             // Cập nhật giá trị vào modal
-            //             document.getElementById('categoryId').value = id;
-            //             document.getElementById('name').value = name;
-            //             document.getElementById('discount').value = discount;
-
-            //             // Mở modal
-            //             var myModal = new bootstrap.Modal(document.getElementById('editModal'));
-            //             myModal.show();
-            //         });
-            //     });
-            // });
             document.addEventListener('DOMContentLoaded', function() {
                 const editBtns = document.querySelectorAll('.edit-btn');
 
@@ -703,6 +856,31 @@
                 });
             });
 
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     const editBtnsSub = document.querySelectorAll('.edit-btnSub');
+
+            //     editBtnsSub.forEach(btn => {
+            //         btn.addEventListener('click', function() {
+            //             // Lấy dữ liệu từ thuộc tính data-*
+            //             const idSub = btn.getAttribute('data-id');
+            //             const nameSub = btn.getAttribute('data-name');
+            //             const discountSub = btn.getAttribute('data-discount');
+            //             const statusSub = btn.getAttribute('data-status');
+            //             const slugSub = btn.getAttribute('data-slug');
+
+            //             // Cập nhật giá trị vào modal
+            //             document.getElementById('idSub').value = idSub;
+            //             document.getElementById('nameSub').value = nameSub;
+            //             document.getElementById('discountSub').value = discountSub;
+            //             document.getElementById('statusSub').value = statusSub;
+            //             document.getElementById('slugSub').value = slugSub;
+
+            //             // Mở modal
+            //             var myModal = new bootstrap.Modal(document.getElementById('editSubModal'));
+            //             myModal.show();
+            //         });
+            //     });
+            // });
             document.addEventListener('DOMContentLoaded', function() {
                 const editBtnsSub = document.querySelectorAll('.edit-btnSub');
 
@@ -715,7 +893,7 @@
                         const statusSub = btn.getAttribute('data-status');
                         const slugSub = btn.getAttribute('data-slug');
 
-                        // Cập nhật giá trị vào modal
+                        // Cập nhật giá trị vào các trường trong modal
                         document.getElementById('idSub').value = idSub;
                         document.getElementById('nameSub').value = nameSub;
                         document.getElementById('discountSub').value = discountSub;
@@ -724,6 +902,58 @@
 
                         // Mở modal
                         var myModal = new bootstrap.Modal(document.getElementById('editSubModal'));
+                        myModal.show();
+                    });
+                });
+            });
+
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     const editBtnsSub2 = document.querySelectorAll('.edit-btnSub2');
+
+            //     editBtnsSub2.forEach(btn => {
+            //         btn.addEventListener('click', function() {
+            //             // Lấy dữ liệu từ thuộc tính data-*
+            //             const idSub2 = btn.getAttribute('data-id');
+            //             const nameSub2 = btn.getAttribute('data-name');
+            //             const discountSub2 = btn.getAttribute('data-discount');
+            //             const statusSub2 = btn.getAttribute('data-status');
+            //             const slugSub2 = btn.getAttribute('data-slug');
+
+            //             // Cập nhật giá trị vào modal
+            //             document.getElementById('idSub2').value = idSub2;
+            //             document.getElementById('nameSub2').value = nameSub2;
+            //             document.getElementById('discountSub2').value = discountSub2;
+            //             document.getElementById('statusSub2').value = statusSub2;
+            //             document.getElementById('slugSub2').value = slugSub2;
+
+            //             // Mở modal
+            //             var myModal = new bootstrap.Modal(document.getElementById('editSubModal2'));
+            //             myModal.show();
+            //         });
+            //     });
+            // });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const editBtnsSub2 = document.querySelectorAll('.edit-btnSub2');
+
+                editBtnsSub2.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Lấy dữ liệu từ thuộc tính data-*
+                        const idSub2 = btn.getAttribute('data-id');
+                        const nameSub2 = btn.getAttribute('data-name');
+                        const discountSub2 = btn.getAttribute('data-discount');
+                        const statusSub2 = btn.getAttribute('data-status');
+                        const slugSub2 = btn.getAttribute('data-slug');
+
+                        // Cập nhật giá trị vào các trường trong modal
+                        document.getElementById('idSub2').value = idSub2;
+                        document.getElementById('nameSub2').value = nameSub2;
+                        document.getElementById('discountSub2').value = discountSub2;
+                        document.getElementById('statusSub2').value = statusSub2;
+                        document.getElementById('slugSub2').value = slugSub2;
+
+                        // Mở modal
+                        var myModal = new bootstrap.Modal(document.getElementById('editSubModal2'));
                         myModal.show();
                     });
                 });

@@ -165,7 +165,7 @@
 
 
         <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
-            <form action="{{ route('admin.users.addUser') }}" method="post" enctype="multipart/form-data">
+            <form id="statusForm" action="{{ route('admin.users.addUser') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -250,7 +250,7 @@
                             </div><!--end row-->
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary w-100">Lưu</button>
+                            <button type="button" class="btn btn-primary w-100" onclick="confirmSubmit()">Lưu</button>
                         </div>
                     </div>
                 </div>
@@ -271,6 +271,34 @@
                     reader.readAsDataURL(file);
                 }
             });
+        </script>
+        <script>
+            function confirmSubmit() {
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Bạn sẽ không thể hoàn tác sau khi thực hiện hành động này!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText:"Hủy",
+                    confirmButtonText: "Có, cập nhật!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Hiển thị thông báo thành công và submit form
+                        Swal.fire({
+                            title: "Thành công!",
+                            text: "Trạng thái đã được cập nhật.",
+                            icon: "success",
+                            timer: 2500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            document.getElementById('statusForm')
+                        .submit(); // Gửi form sau khi người dùng xác nhận
+                        });
+                    }
+                });
+            }
         </script>
         {{-- <script>
             const inputElement = document.getElementById('avatar-input');

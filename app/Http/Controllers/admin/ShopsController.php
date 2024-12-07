@@ -23,37 +23,27 @@ class ShopsController extends Controller
         $shops = Shop::with('user', 'category')->where('status', 1)->orderBy('created_at', 'desc')->paginate(15); // Lấy shop và user tương ứng
         return view('admin.contents.shops.listShop', compact('shops'));
     }
-
-    // public function detailShop($slug)
-    // {
-
-    //     // Lấy chi tiết danh mục cha theo slug và bao gồm các danh mục con
-    //     $detailShop = Shop::with('user','category', 'product')->where('slug', $slug)->first();
-    //     $detailShop->increment('view');
-    //     return view('admin.contents.shops.detailShop')
-    //         ->with('detailShop', $detailShop);
-    // }
-    public function detailShop($slug)
+    public function listShopStatus2()
+    {
+        $shops = Shop::with('user', 'category')->where('status', 2)->orderBy('created_at', 'desc')->paginate(15); // Lấy shop và user tương ứng
+        return view('admin.contents.shops.listShopStatus2', compact('shops'));
+    }
+    public function listShopStatus3()
+    {
+        $shops = Shop::with('user', 'category')->where('status', 3)->orderBy('created_at', 'desc')->paginate(15); // Lấy shop và user tương ứng
+        return view('admin.contents.shops.listShopStatus3', compact('shops'));
+    }
+    public function detailShop($slug,$status)
     {
         // Lấy chi tiết shop bao gồm sản phẩm, người dùng, danh mục và comment
         $detailShop = Shop::with('user', 'category', 'product')->where('slug', $slug)->first();
         // Đếm số lượng bình luận của shop
         $commentCount = $detailShop->comments->count();  // 'comments' là mối quan hệ trong model Shop
-// , 'comments.replies'
         // Đếm số lượng bình luận trong tuần
         $commentCountThisWeek = $detailShop->comments()->whereBetween('created_at', [
             Carbon::now()->startOfWeek(),  // Ngày đầu tuần
             Carbon::now()->endOfWeek()      // Ngày cuối tuần
         ])->count();
-        // // Tăng lượt xem của shop
-        // $detailShop->increment('view');
-        // // 
-        // // Trả lại view với thông tin shop
-        // return view('admin.contents.shops.detailShop')
-        //     ->with('detailShop', $detailShop)
-        //     ->with('commentCount', $commentCount)
-        //     ->with('commentCountThisWeek', $commentCountThisWeek);
-        // Lấy các bình luận với phân trang (10 bình luận mỗi trang)
         $comments = $detailShop->comments()->paginate(5);
 
         // Tăng lượt xem của shop
@@ -64,6 +54,28 @@ class ShopsController extends Controller
             ->with('detailShop', $detailShop)
             ->with('commentCount', $commentCount)
             ->with('commentCountThisWeek', $commentCountThisWeek)
-            ->with('comments', $comments);  // Truyền các bình luận đã phân trang
+            ->with('comments', $comments)
+            ->with('status', $status);  // Truyền các bình luận đã phân trang
     }
+
+    // public function updateStatusShop() {
+        
+    // }
+    public function updateStatusShop(Request $request)
+{
+    // Xác thực dữ liệu (nếu cần)
+    $request->validate([
+        'shop_id' => 'required|exists:shops,id',
+        'status' => 'required|in:1,2,3',  // Giới hạn trạng thái hợp lệ
+    ]);
+
+    // Tìm shop và cập nhật trạng thái
+    $shop = Shop::findOrFail($request->shop_id);
+    $shop->status = $request->status;
+    $shop->save();
+
+    // Chuyển hướng với thông báo thành công
+    return redirect()->back()->with('success', 'Trạng thái của gian hàng đã được cập nhật thành công.');
+}
+
 }

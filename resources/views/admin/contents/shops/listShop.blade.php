@@ -142,7 +142,7 @@
                                            
                                                 <td class="text-end">
                                                     <a
-                                                        href=" {{ route('admin.shops.detailShop', ['slug' => $item->slug]) }}"><i
+                                                        href=" {{ route('admin.shops.detailShop', ['slug' => $item->slug,'status' => $item->status]) }}"><i
                                                             class="las la-info-circle text-secondary fs-18 "></i></a>
                                                     &nbsp
                                                     &nbsp
@@ -165,7 +165,7 @@
         </div><!-- container -->
 
 
-        <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
             <form action="{{ route('admin.users.addUser') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-dialog">
@@ -224,8 +224,6 @@
                                     <div class="mb-2">
                                         <label for="ragisterDate">Vai Trò</label>
                                         <div class="input-group">
-                                            {{-- <span class="input-group-text" id="ragisterDate"><i class="far fa-calendar"></i></span>
-                                <input type="text" class="form-control" placeholder="00/2024" aria-label="ragisterDate"> --}}
                                             <select class="form-control" name="role" id="role">
                                                 <option value="" selected>Chọn Vai Trò</option>
                                                 <option value="1">Khách Hàng</option>
@@ -256,9 +254,9 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </div> --}}
 
-        <script>
+        {{-- <script>
             document.getElementById('image').addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -272,5 +270,5 @@
                     reader.readAsDataURL(file);
                 }
             });
-        </script>
+        </script> --}}
     @endsection

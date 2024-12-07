@@ -46,7 +46,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-phone"></i></span>
-                                <input type="text" class="form-control" value="{{ $detailUser->phone }}"
+                                <input type="text" class="form-control" value="{{ $detailUser->phone ?? "Trống" }}"
                                     aria-label="Username" aria-describedby="basic-addon1" disabled>
                             </div>
                             <div class="input-group mb-3">
@@ -180,7 +180,7 @@
                                         </div>
                                         <div class="text-body mb-3 d-flex align-items-center"><i
                                                 class="iconoir-phone fs-20 me-1 text-muted"></i><span
-                                                class="text-body fw-semibold">Phone :&nbsp</span> {{ $detailUser->phone }}
+                                                class="text-body fw-semibold">Phone :&nbsp</span> {{ $detailUser->phone ?? "Trống" }}
                                         </div>
                                         {{-- <button type="button" class="btn btn-primary  d-inline-block">Follow</button> 
                                             <button type="button" class="btn btn-light  d-inline-block">Hire Me</button>  --}}
@@ -222,7 +222,7 @@
                                     </div> <!--end row-->
                                 </div><!--end card-header-->
                                 <div class="card-body pt-0">
-                                    <form action="{{ route('admin.users.updateUser') }}" method="POST">
+                                    <form id="statusForm" action="{{ route('admin.users.updateUser') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $detailUser->id }}">
                                         <div class="mb-3 row">
@@ -281,7 +281,7 @@
                                         @endif
                                         <div class="row">
                                             <div class="col-sm-10 ms-auto">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Lưu</button>
                                                 <button type="button" class="btn btn-danger">Cancel</button>
                                             </div>
                                         </div>
@@ -297,4 +297,33 @@
                 </div> <!--end col-->
             </div><!--end row-->
         </div><!-- container -->
+
+        <script>
+            function confirmSubmit() {
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Bạn sẽ không thể hoàn tác sau khi thực hiện hành động này!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText:"Hủy",
+                    confirmButtonText: "Có, cập nhật!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Hiển thị thông báo thành công và submit form
+                        Swal.fire({
+                            title: "Thành công!",
+                            text: "Trạng thái đã được cập nhật.",
+                            icon: "success",
+                            timer: 2500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            document.getElementById('statusForm')
+                        .submit(); // Gửi form sau khi người dùng xác nhận
+                        });
+                    }
+                });
+            }
+        </script>
     @endsection

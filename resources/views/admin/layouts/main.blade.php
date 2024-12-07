@@ -65,7 +65,7 @@
 
     <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{asset('assets/apexcharts.com/samples/assets/stock-prices.js')}}"></script>
     <script src="{{asset('assets/js/pages/index.init.js')}}"></script>

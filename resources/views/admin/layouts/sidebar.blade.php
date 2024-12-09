@@ -99,9 +99,9 @@
                         </a>
                     </li><!--end nav-item-->
                     <li class="nav-item">
-                        <a class="nav-link" href="taxes.html">
+                        <a class="nav-link" href="{{route('admin.transaction.transactionHistory')}}">
                             <i class="iconoir-plug-type-l menu-icon"></i>
-                            <span>Texes</span>
+                            <span>Lịch Sử Nạp Tiền</span>
                         </a>
                     </li><!--end nav-item-->
                     <li class="nav-item">

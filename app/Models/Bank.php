@@ -17,7 +17,9 @@ class Bank extends Model
         'bank_name', // Tên ngân hàng
         'bankers',   // Người giao dịch
         'account_number', // Số tài khoản
-        'status',    // Trạng thái (active, inactive)
+        'status',    // Trạng thái (active, inactive) 
+        'account_name' ,
+        'account_password' ,
     ];
 
     // Các trường không được phép gán đại trà

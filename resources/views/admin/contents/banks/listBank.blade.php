@@ -95,11 +95,11 @@
                                     </div>
                                 @endif
                                 @if (session('message'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('message') }}
-                                </div>
-                            @endif
-                            
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
+
 
                                 <table class="table mb-0" id="datatable_1">
                                     <thead class="table-light">
@@ -123,18 +123,18 @@
                                                                 class="me-2 thumb-md align-self-center rounded"
                                                                 alt="...">
                                                         @elseif($item->bank_name == '970416')
-                                                            <img src="{{ asset('assets/images/logos/logo-acb.jpg') }}" alt=""
-                                                                width="40px" height="40px"
+                                                            <img src="{{ asset('assets/images/logos/logo-acb.jpg') }}"
+                                                                alt="" width="40px" height="40px"
                                                                 class="me-2 thumb-md align-self-center rounded">
                                                         @endif
 
                                                         <div class="flex-grow-1 text-truncate">
-                                                            @if ($item->bank_name==970422)
-                                                            <h6 class="m-0">MBBank</h6>
+                                                            @if ($item->bank_name == 970422)
+                                                                <h6 class="m-0">MBBank</h6>
                                                             @elseif($item->bank_name == 970416)
-                                                            <h6 class="m-0">ACB</h6>
+                                                                <h6 class="m-0">ACB</h6>
                                                             @endif
-                                                            
+
                                                             <!-- Kiểm tra nếu người dùng được tạo trong vòng 24 giờ qua -->
                                                             <p class="fs-12 text-muted mb-0">
                                                                 {{-- @if ($item->created_at->diffInHours(now()) <= 24)
@@ -162,8 +162,7 @@
                                                 <td class="text-end">
                                                     {{-- <a href="#"><i class="las la-pen text-secondary fs-18"></i></a>
                                                         <a href="#"><i class="las la-trash-alt text-secondary fs-18"></i></a> --}}
-                                                    <a
-                                                        href="{{ route('admin.banks.detailBank', ['id' => $item->id]) }}"><i
+                                                    <a href="{{ route('admin.banks.detailBank', ['id' => $item->id]) }}"><i
                                                             class="las la-info-circle text-secondary fs-18 "></i></a>
                                                     &nbsp
                                                     &nbsp
@@ -175,7 +174,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                          
+
                         </div>
 
                     </div>
@@ -189,7 +188,7 @@
 
 
         <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
-            <form id="statusForm" action="{{ route('admin.banks.addBank') }}" method="post" >
+            <form id="statusForm" action="{{ route('admin.banks.addBank') }}" method="post">
                 @csrf
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -214,11 +213,27 @@
                                         aria-label="username" id="account_number" name="account_number">
                                 </div>
                             </div>
+                            <div class=" mb-2">
+                                <label for="username">Tên Tài Khoản</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="username">NGUYEN **</span>
+                                    <input type="text" class="form-control" placeholder="Tên Đăng Nhập Của Tài Khoản"
+                                        aria-label="username" id="account_name" name="account_name">
+                                </div>
+                            </div>
+                            <div class=" mb-2">
+                                <label for="username">Mật Khẩu Tài Khoản</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="username">*****</span>
+                                    <input type="password" class="form-control" placeholder="Mật Khẩu Tài Khoản"
+                                        aria-label="username" id="account_password" name="account_password">
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-2">
                                         <label for="ragisterDate">Ngân Hàng</label>
-                                        <div class="input-group"> 
+                                        <div class="input-group">
                                             <select class="form-control" name="bank_name" id="bank_name">
                                                 <option value="" selected>Chọn Ngân Hàng</option>
                                                 <option value="970422">MBBank</option>
@@ -275,5 +290,5 @@
                     }
                 });
             }
-        </script> 
+        </script>
     @endsection

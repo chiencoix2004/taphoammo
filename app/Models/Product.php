@@ -16,6 +16,7 @@ class Product extends Model
     protected $fillable = [
         'id_shop',
         'product_name',
+        // 'category_id',
         'price',
         'quantity',
         'status',
@@ -26,4 +27,8 @@ class Product extends Model
     {
         return $this->belongsTo(Shop::class, 'id_shop');
     }
+    // public function category()
+    // {
+    //     return $this->belongsTo(Categories::class, 'category_id');
+    // }
 }

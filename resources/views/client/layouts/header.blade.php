@@ -8,7 +8,7 @@
             </div>
 
             <form action="#" class="header__search">
-                <input type="text" placeholder="Search items, collections, and creators">
+                <input type="text" placeholder="Tìm kiếm sản phẩm">
                 <button type="button"><i class="icofont-search-2"></i></button>
                 <button type="button" class="close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
@@ -18,7 +18,7 @@
             <div class="header__menu ms-auto">
                 <ul class="header__nav mb-0">
                     <li class="header__nav-item">
-                        <a href="activity.html" class="header__nav-link">Home</a>
+                        <a href="{{ route('home') }}" class="header__nav-link">Home</a>
                     </li>
                     {{-- <li class="header__nav-item">
                         <a class="header__nav-link active home-4" href="#" role="button"
@@ -35,17 +35,23 @@
                         </ul>
                     </li> --}}
                     <li class="header__nav-item">
-                        <a class="header__nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="header__nav-link" href="#!" role="button" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" data-bs-offset="0,10">Danh Mục</a>
 
                         <ul class="dropdown-menu header__nav-menu">
-                            <li><a class="drop-down-item" href="explore.html">Explore NFT's</a></li>
-                            <li><a class="drop-down-item" href="auction.html">Auction Page</a></li>
-
+                            @foreach ($categories as $category)
+                                <li><a class="drop-down-item" href="#!">{{ $category->name }}</a></li>
+                                {{-- <li class="dropdown-menu header__nav-menu"> --}}
+                                @foreach ($category->children as $child)
+                                    <a href="{{ route('listShop', ['slug' => $child->slug]) }}"
+                                        class="nav-link toggle-menu">+ {{ $child->name }}</a>
+                                @endforeach
+                            @endforeach
+                            {{-- <li><a class="drop-down-item" href="auction.html">Auction Page</a></li> --}}
                         </ul>
                     </li>
                     <li class="header__nav-item">
-                        <a href="activity.html" class="header__nav-link">Activity</a>
+                        <a href="activity.html" class="header__nav-link">Bài Viết</a>
                     </li>
                     <li class="header__nav-item">
                         <a class="header__nav-link" href="#" role="button" data-bs-toggle="dropdown"
@@ -95,13 +101,12 @@
                     <button class="header__action-btn" type="button"><i class="icofont-search-1"></i></button>
                 </div>
 
-                <div class="header__action header__action--profile">
+                {{-- <div class="header__action header__action--profile">
                     <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" data-bs-offset="-100,10">
-                            <span data-blast="bgColor"><i class="icofont-user"></i></span> <span
-                                class="d-none d-md-inline">Alex
-                                Joe</span>
+                        <a class="dropdown-toggle" href="{{ route('login') }}" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="-100,10">
+                            <span data-blast="bgColor"><i class="icofont-user"></i></span>
+                            <span class="d-none d-md-inline">Đăng Nhập</span>
                         </a>
 
                         <ul class="dropdown-menu">
@@ -126,11 +131,70 @@
                                     Out <span class="ms-1"><i class="icofont-logout"></i></span></a></li>
                         </ul>
                     </div>
-                </div>
-                <div class="wallet-btn">
+                </div> --}}
+
+                {{-- <div class="header__action header__action--profile">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="{{ route('showLoginForm') }}">
+                            <span data-blast="bgColor"><i class="icofont-user"></i></span>
+                            <span class="d-none d-md-inline">Đăng Nhập</span>
+                        </a> 
+                    </div>
+                </div> --}}
+
+                @guest
+                    <div class="header__action header__action--profile">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="{{ route('showLoginForm') }}">
+                                <span data-blast="bgColor"><i class="icofont-user"></i></span>
+                                <span class="d-none d-md-inline">Đăng Nhập</span>
+                            </a>
+                        </div>
+                    </div>
+                @else
+                    <div class="header__action header__action--profile">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="{{ route('login') }}" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="-100,10">
+                                <span data-blast="bgColor"><i class="icofont-user"></i></span>
+                                <span class="d-none d-md-inline">{{ Auth::user()->fullname }}</span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="author.html"><span class="me-1"><i
+                                                class="icofont-options"></i></span>
+                                        Profile</a></li>
+                                <li><a class="dropdown-item" href="activity.html"><span class="me-1"><i
+                                                class="icofont-lightning-ray"></i></span>
+                                        Activity</a></li>
+                                {{-- <li><a class="dropdown-item" href="signup.html"><span class="me-1"><i class="icofont-space-shuttle"></i></span> Sign Up</a></li>
+                                <li><a class="dropdown-item" href="signin.html"><span class="me-1"><i class="icofont-login"></i></span> Sign In</a></li> --}}
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                <li><a class="dropdown-item" href="{{route('logout')}}"> Đăng Xuất <span class="ms-1"><i class="icofont-logout"></i></span></a></li>
+                            </ul>
+                        </div>
+                    </div> 
+                @endguest
+                {{-- <div class="wallet-btn">
                     <a href="wallet.html"><span><i class="icofont-wallet" data-blast="color"></i></span> <span
-                            class="d-none d-md-inline">234.98ETH</span> </a>
+                            class="d-none d-md-inline">0VND</span> </a>
+                </div> --}}
+
+                @guest
+                    
+                @else
+                <div class="wallet-btn">
+                    <a href="{{route('wallet')}}"><span><i class="icofont-wallet" data-blast="color"></i></span> <span
+                            class="d-none d-md-inline">
+                            {{-- {{ Auth::user()->fullname }}VNĐ --}}
+                            {{ number_format(Auth::user()->wallet ? Auth::user()->wallet->cash : 0, 0, ',', '.') }}VNĐ
+                            {{-- 100000000000VNĐ --}}
+                        </span> </a>
                 </div>
+                @endguest
 
             </div>
 

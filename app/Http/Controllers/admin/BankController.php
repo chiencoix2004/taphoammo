@@ -25,7 +25,9 @@ class BankController extends Controller
         // Xác thực dữ liệu đầu vào
         $request->validate([
             'bankers' => 'required|string|max:255',
-            'account_number' => 'required|numeric',
+            'account_number' => 'required|numeric', 
+            'account_name' => 'required|string|max:255',
+            'account_password' => 'required|string|max:255',
         ]);
 
         // Lấy ngân hàng từ cơ sở dữ liệu theo ID
@@ -36,7 +38,9 @@ class BankController extends Controller
             'bank_name' => $request->bank_name,
             'bankers' => $request->bankers,
             'account_number' => $request->account_number,
-            'status' => $request->status,
+            'status' => $request->status, 
+            'account_name' => $request->account_name, 
+            'account_password'=> $request->account_password, 
         ]);
 
         // Trả về thông báo thành công và chuyển hướng
@@ -51,6 +55,8 @@ class BankController extends Controller
             'account_number' => 'required|numeric',
             'bank_name' => 'required|string',
             'status' => 'required|string',
+            'account_name' => 'required|string|max:255',
+            'account_password' => 'required|string|max:255',
         ]);
 
         // Tạo mới ngân hàng
@@ -59,6 +65,8 @@ class BankController extends Controller
             'bankers' => $request->bankers,
             'account_number' => $request->account_number,
             'status' => $request->status,
+            'account_name' => $request->account_name,
+            'account_password'=> $request->account_password,
         ]);
 
         // Trả về thông báo thành công

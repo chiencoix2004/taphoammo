@@ -75,17 +75,18 @@
                                 </div><!--end col-->
                             </div> <!--end row-->
                         </div><!--end card-header-->
-                        <div class="card-body pt-0" >
-                            <div class="table-responsive" >
-                                    <img src="https://img.vietqr.io/image/{{$detailBank->bank_name}}-
-                                {{$detailBank->account_number}}-compact.png" width="200px" height="200px">
+                        <div class="card-body pt-0">
+                            <div class="table-responsive">
+                                <img src="https://img.vietqr.io/image/{{ $detailBank->bank_name }}-
+                                {{ $detailBank->account_number }}-compact.png"
+                                    width="200px" height="200px">
                                 <div class="text-danger" id="discountError">
                                     Nếu Quét Qrcode Lỗi Hoặc Không Có Ảnh Là Do STK Ngân Hàng Không Đúng.
                                 </div>
                             </div><!--end /tableresponsive-->
                         </div><!--end card-body-->
                     </div><!--end card-->
-                    
+
                 </div> <!--end col-->
 
                 {{-- <div class="col-md-6 col-lg-6">
@@ -269,6 +270,7 @@
                                                 {{ $detailBank->bank_name == '970416' ? 'selected' : '' }}>
                                                 ACB
                                             </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -283,6 +285,26 @@
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" id="account_number" name="account_number"
                                             placeholder="Nhập Số Tài Khoản" value="{{ $detailBank->account_number }}">
+                                        {{-- <div class="text-danger" id="discountError">
+                                            Vui lòng nhập giá trị chiết khấu hợp lệ từ 0 - 5% .
+                                        </div> --}}
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="horizontalInput1" class="col-sm-2 col-form-label">Tên Tài Khoản</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="account_name" name="account_name"
+                                            placeholder="Nhập Tên Tài Khoản" value="{{ $detailBank->account_name }}">
+                                        {{-- <div class="text-danger" id="discountError">
+                                            Vui lòng nhập giá trị chiết khấu hợp lệ từ 0 - 5% .
+                                        </div> --}}
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="horizontalInput1" class="col-sm-2 col-form-label">Mật Khẩu Tài Khoản</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="account_password" name="account_password"
+                                            placeholder="Nhập Mật Khẩu Tài Khoản" value="{{ $detailBank->account_password }}">
                                         {{-- <div class="text-danger" id="discountError">
                                             Vui lòng nhập giá trị chiết khấu hợp lệ từ 0 - 5% .
                                         </div> --}}
